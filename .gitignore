@@ -1,0 +1,9 @@
+build/
+cmake-build-*/
+.vs/
+.idea/
+*.user
+*.suo
+.DS_Store
+external/JUCE/
+external/NeuralAmpModelerCore/
