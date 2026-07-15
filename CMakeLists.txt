@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(Bloom VERSION 0.1.1 LANGUAGES CXX)
+project(Bloom VERSION 0.1.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -41,19 +41,20 @@ target_include_directories(BloomNamCore SYSTEM PUBLIC
   "${neuralampmodelercore_SOURCE_DIR}/Dependencies/nlohmann"
 )
 
+# First prove the NAM-powered application builds and runs as a standalone.
+# VST3 will be restored after the JUCE manifest step is handled cleanly.
 juce_add_plugin(Bloom
   COMPANY_NAME "Bloom"
   BUNDLE_ID "audio.bloom.player"
   PLUGIN_MANUFACTURER_CODE Blom
   PLUGIN_CODE Blm1
-  FORMATS Standalone VST3
+  FORMATS Standalone
   PRODUCT_NAME "Bloom"
   IS_SYNTH FALSE
   NEEDS_MIDI_INPUT FALSE
   NEEDS_MIDI_OUTPUT FALSE
   IS_MIDI_EFFECT FALSE
   COPY_PLUGIN_AFTER_BUILD FALSE
-  VST3_AUTO_MANIFEST FALSE
 )
 
 target_sources(Bloom PRIVATE
@@ -65,6 +66,6 @@ target_sources(Bloom PRIVATE
   src/audio/NamEngine.h
 )
 
-target_compile_definitions(Bloom PUBLIC JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0 NAM_SAMPLE_FLOAT)
+target_compile_definitions(Bloom PUBLIC JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 NAM_SAMPLE_FLOAT)
 target_link_libraries(Bloom PRIVATE BloomNamCore juce::juce_audio_utils juce::juce_dsp PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_lto_flags juce::juce_recommended_warning_flags)
 juce_generate_juce_header(Bloom)
