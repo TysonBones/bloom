@@ -18,10 +18,8 @@ jobs:
       - name: Build
         run: cmake --build build --config Release --parallel
 
-      - name: Upload standalone and VST3
+      - name: Upload standalone
         uses: actions/upload-artifact@v4
         with:
-          name: Bloom-Windows-Prototype
-          path: |
-            build/Bloom_artefacts/Release/Standalone/**
-            build/Bloom_artefacts/Release/VST3/**
+          name: Bloom-Windows-Standalone
+          path: build/Bloom_artefacts/Release/Standalone/**
